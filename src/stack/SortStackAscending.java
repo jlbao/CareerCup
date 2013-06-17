@@ -6,7 +6,7 @@ public class SortStackAscending {
 		Stack s = new Stack();
 		s.push(new Node(3));
 		s.push(new Node(5));
-		s.push(new Node(19));
+		s.push(new Node(1));
 		s.push(new Node(2));
 		
 		s = sortStackAscending(s);
