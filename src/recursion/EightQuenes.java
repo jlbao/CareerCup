@@ -2,51 +2,46 @@ package recursion;
 
 public class EightQuenes {
 
-
 	public static void main(String[] args) {
-		System.out.println(displayPattern(new boolean[8][8], 0, -2));
+		System.out.println(displayPattern(new boolean[8][8], 0));
 	}
-
 	
-	public static int displayPattern(boolean[][] pattern, int row, int col){
+	public static int displayPattern(boolean[][] pattern, int row){
 		int rowLen = pattern.length;
 		int colLen = pattern[0].length;
 		int count = 0;
 		
-		if(row == rowLen - 1)
-			return 1;
-		
-
-		if(row < rowLen){
+		for(int j = 0; j < colLen; j++){
+			// find if this position can be inserted	
 			boolean flag = true;
-			
-			for(int j = 0; j < colLen; j++){
-				// find if this position can be inserted
-				for(int i = 0; i < rowLen; i++){
-					if(j > 0 && j < colLen && pattern[i][j] == true){
-						flag = false;
-						break;
-					}
+			int leftDiagonal = j - 1;
+			int rightDiagonal = j + 1;
+			for(int i = row - 1; i >= 0; i--){
+				if(pattern[i][j] == true){ //upper
+					flag = false;
+					break;
 				}
-				if(row - 1 > 0 && row - 1 < rowLen && j - 1 > 0 && j - 1 < colLen){
-					if(pattern[row - 1][j - 1] == true){
-						flag = false;
-					}
+				else if(leftDiagonal >= 0 && pattern[i][leftDiagonal--] == true){
+					//left diagonal
+					flag = false;
+					break;
 				}
-				
-				if(row - 1 > 0 && row - 1 < rowLen && j + 1 > 0 && j + 1 < colLen){
-					if(pattern[row - 1][j + 1] == true){
-						flag = false;
-					}
+				else if(rightDiagonal < colLen && pattern[i][rightDiagonal++] == true){
+					//right diagonal
+					flag = false;
+					break;
 				}
-				
-				if(flag){
-					pattern[row][j] = true;
-					count = count + displayPattern(pattern,row + 1, j + 1);
-					pattern[row][j] = false;
-				}
-			}	
-		}
+			}
+
+			if(flag){
+				if(row == rowLen - 1)
+					return 1;
+				pattern[row][j] = true;
+				count = count + displayPattern(pattern,row + 1);
+				pattern[row][j] = false;
+			}
+		}	
+		
 		return count;
 	}
 }
