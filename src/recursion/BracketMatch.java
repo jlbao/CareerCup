@@ -5,9 +5,16 @@ import java.util.HashSet;
 public class BracketMatch {
 
 	public static void main(String[] args) {
+		/* method 1, use pre result to insert */
 		HashSet<String> set = bracketMatch(3);
 		for(String data : set)
 			System.out.print(data + " ");
+		
+		System.out.println();
+		
+		/* method 2, insert to match bracket, revese to method 1 */
+	
+		printMatchedBracket("", 3, 3);
 	}
 
 	public static HashSet<String> bracketMatch(int n){
@@ -41,4 +48,16 @@ public class BracketMatch {
 	}
 	
 	
+	//another method to concat
+	public static void printMatchedBracket(String result, int left, int right){
+		if(left == 0 && right == 0)
+			System.out.print(result + " ");
+		else if(left < right && left > 0){
+			printMatchedBracket(result + "(", left - 1, right);
+			printMatchedBracket(result + ")", left, right - 1);
+		}else if(left == right)
+			printMatchedBracket(result + "(", left - 1, right);
+		else if(left == 0 && right > 0)
+			printMatchedBracket(result + ")", left, right - 1);
+	}
 }
