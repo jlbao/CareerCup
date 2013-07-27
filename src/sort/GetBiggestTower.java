@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.ArrayList;
+
 public class GetBiggestTower {
 
 
@@ -10,71 +12,60 @@ public class GetBiggestTower {
 									new Plate(50,120),
 									new Plate(30,115),
 									new Plate(35,110),
-									new Plate(20,135)};
+									new Plate(120,135)};
 		
-		int[] heightSortedIndex = mergeSort(plates,0,plates.length - 1, true);
-		int[] weightSortedIndex = mergeSort(plates,0,plates.length - 1, false);
+		Plate[] heightSortedPlates = mergeSort(plates,0,plates.length - 1);
 		
-		int[] buffer = new int[plates.length];
-		Plate[] sortedTower = new Plate[plates.length];
-		for(int i = 0, flag = 0; i < heightSortedIndex.length; i++){
-			buffer[heightSortedIndex[i]]++;
-			buffer[weightSortedIndex[i]]++;
-			Plate hPlate = null;
-			Plate wPlate = null;
-			
-			if(buffer[heightSortedIndex[i]] == 2)
-				hPlate = plates[heightSortedIndex[i]];
-			if (buffer[weightSortedIndex[i]] == 2)
-				wPlate = plates[weightSortedIndex[i]];
-			
-			if(hPlate != null && wPlate != null){
-				
-			}
-			
-			
-			
+		ArrayList<Plate> largestList = null;
+		ArrayList<Plate> currentList = new ArrayList<Plate>();
 		
+		for(int i = 0; i < heightSortedPlates.length - 1; i++){
+			if(currentList.size() == 0)
+				currentList.add(heightSortedPlates[i]);
+
+			if(largestList == null)
+				largestList = currentList;
+			
+			if(heightSortedPlates[i].weight <= heightSortedPlates[i + 1].weight)
+				currentList.add(heightSortedPlates[i + 1]);
+			else
+				currentList = new ArrayList<Plate>();	
+			
+			if(currentList.size() > largestList.size())
+				largestList = currentList;
+			
+
 		}
 		
-		for(Plate p: sortedTower){
-			if(p != null)
-				System.out.println(p.height + " " + p.weight);
-		}
+		for(Plate p : largestList)
+			System.out.println(p.height + " " + p.weight);
 		
 		
-	}
-	
-	
+}
+		
 	//return the index array of the the plates according to mergeHeight and mergeWeight
-	public static int[] mergeSort(Plate[] plates, int pre, int after, boolean bMergeHeight){
+	public static Plate[] mergeSort(Plate[] plates, int pre, int after){
 		if(pre == after)
-			return new int[]{pre};
+			return new Plate[]{plates[pre]};
 		int mid = (pre + after) / 2;
-		int[] prePlates = mergeSort(plates,pre,mid,bMergeHeight);
-		int[] afterPlates = mergeSort(plates,mid + 1, after, bMergeHeight);
-		int[] newPlates = new int[prePlates.length + afterPlates.length];
-		
+		Plate[] prePlates = mergeSort(plates,pre,mid);
+		Plate[] afterPlates = mergeSort(plates,mid + 1, after);
+		Plate[] newPlates = new Plate[prePlates.length + afterPlates.length];
+	
 		for(int i = 0, j = 0, k = 0; k < newPlates.length; k++){
 			if(i < prePlates.length && j < afterPlates.length){
-				if(bMergeHeight == true && plates[prePlates[i]].height < plates[afterPlates[j]].height)
-					newPlates[k] = prePlates[i++];
-				else if(bMergeHeight == false && plates[prePlates[i]].weight < plates[afterPlates[j]].weight)
+				if(prePlates[i].height < afterPlates[j].height)
 					newPlates[k] = prePlates[i++];
 				else
 					newPlates[k] = afterPlates[j++];
-			}else if (i >= prePlates.length)
-				newPlates[k] = afterPlates[j++];
-			else
+			}else if(i < prePlates.length)
 				newPlates[k] = prePlates[i++];
+			else
+				newPlates[k] = afterPlates[j++];
 		}
+	
 		return newPlates;
 	}
-	
-	public static void getBiggestTower(){
-		
-	}
-	
 	
 }
 
