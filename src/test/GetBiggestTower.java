@@ -1,4 +1,4 @@
-package sort;
+package test;
 
 import java.util.ArrayList;
 
@@ -6,38 +6,29 @@ public class GetBiggestTower {
 
 
 	public static void main(String[] args) {
-		Plate[] plates = new Plate[]{new Plate(10,198),
-									new Plate(20,90),
-									new Plate(30,130),
-									new Plate(40,120),
-									new Plate(50,115),
+		Plate[] plates = new Plate[]{new Plate(100,98),
+									new Plate(95,90),
+									new Plate(110,102),
+									new Plate(50,120),
+									new Plate(30,115),
 									new Plate(35,110),
 									new Plate(120,135)};
 		
 		Plate[] heightSortedPlates = mergeSort(plates,0,plates.length - 1);
-		
-		ArrayList<Plate> largestList = null;
 		ArrayList<Plate> currentList = new ArrayList<Plate>();
+		ArrayList<Plate> longList = null;
 		
-		for(int i = 0; i < heightSortedPlates.length - 1; i++){
-			if(currentList.size() == 0)
-				currentList.add(heightSortedPlates[i]);
-
-			if(largestList == null)
-				largestList = currentList;
-			
-			if(heightSortedPlates[i].weight <= heightSortedPlates[i + 1].weight)
-				currentList.add(heightSortedPlates[i + 1]);
+		for(Plate p: heightSortedPlates){
+			if(currentList.isEmpty() || currentList.get(currentList.size() - 1).weight <= p.weight)
+				currentList.add(p);
 			else
-				currentList = new ArrayList<Plate>();	
+				currentList = new ArrayList<Plate>();
 			
-			if(currentList.size() > largestList.size())
-				largestList = currentList;
-			
-
+			if(longList == null || currentList.size() < longList.size())
+				longList = currentList;
 		}
 		
-		for(Plate p : largestList)
+		for(Plate p: longList)
 			System.out.println(p.height + " " + p.weight);
 		
 		

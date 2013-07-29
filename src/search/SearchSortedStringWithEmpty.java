@@ -4,8 +4,8 @@ public class SearchSortedStringWithEmpty {
 
 
 	public static void main(String[] args) {
-		String[] data = {"abc","", "", "bb", "cc", "", "dd"};
-		System.out.println(searchString(data, "dd", 0, data.length - 1));
+		String[] data = {"aa","","bc","","","cd"};
+		System.out.println(searchString(data, "cd", 0, data.length - 1));
 	}
 	
 	public static int searchString(String[] data, String value, int i, int j){
@@ -24,7 +24,7 @@ public class SearchSortedStringWithEmpty {
 					return -1;
 			}else if(value == data[mid])
 				return mid;
-			else if(isBigger(value,data[i]))
+			else if(isBigger(value,data[mid]))
 				i = mid + 1;
 			else
 				j = mid - 1;

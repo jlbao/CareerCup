@@ -45,7 +45,7 @@ public class FindElementInOneHalfSortedArray {
 		int i, j;
 		if(value == turnPoint)
 			return turnPoint;
-		else if(value > data[turnPoint] && value <= data[data.length - 1]){
+		else if( turnPoint == 0 || ( value > data[turnPoint] && value <= data[data.length - 1])){
 			i = turnPoint;
 			j = data.length - 1;
 		}else{
