@@ -1,7 +1,5 @@
 package sort;
 
-import java.util.ArrayList;
-
 public class GetBiggestTower {
 
 
@@ -9,37 +7,37 @@ public class GetBiggestTower {
 		Plate[] plates = new Plate[]{new Plate(10,198),
 									new Plate(20,90),
 									new Plate(30,130),
-									new Plate(40,120),
+									new Plate(40,150),
 									new Plate(50,115),
-									new Plate(35,110),
+									new Plate(78,180),
 									new Plate(120,135)};
 		
 		Plate[] heightSortedPlates = mergeSort(plates,0,plates.length - 1);
 		
-		ArrayList<Plate> largestList = null;
-		ArrayList<Plate> currentList = new ArrayList<Plate>();
+		int[] max = new int[heightSortedPlates.length];
 		
-		for(int i = 0; i < heightSortedPlates.length - 1; i++){
-			if(currentList.size() == 0)
-				currentList.add(heightSortedPlates[i]);
-
-			if(largestList == null)
-				largestList = currentList;
-			
-			if(heightSortedPlates[i].weight <= heightSortedPlates[i + 1].weight)
-				currentList.add(heightSortedPlates[i + 1]);
-			else
-				currentList = new ArrayList<Plate>();	
-			
-			if(currentList.size() > largestList.size())
-				largestList = currentList;
-			
-
+		for(int i = heightSortedPlates.length - 1; i >= 0 ; i--){
+			for(int j = i; j < heightSortedPlates.length; j++){
+				if(heightSortedPlates[i].weight < heightSortedPlates[j].weight)
+					if(max[i] < max[j])
+						max[i] = max[j] + 1;
+			}
+			if(max[i] == 0)
+				max[i] = 1;
 		}
 		
-		for(Plate p : largestList)
-			System.out.println(p.height + " " + p.weight);
+		int maxLen = 0;
+		for(int i = 0; i < max.length; i++){
+			maxLen = maxLen > max[i] ? maxLen : max[i];
+		}
 		
+		System.out.println(maxLen);
+		
+		
+		/*
+		for(Plate p : heightSortedPlates)
+			System.out.println(p.height + " " + p.weight);
+		*/
 		
 }
 		
