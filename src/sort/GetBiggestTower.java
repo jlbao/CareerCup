@@ -19,7 +19,7 @@ public class GetBiggestTower {
 		for(int i = heightSortedPlates.length - 1; i >= 0 ; i--){
 			for(int j = i; j < heightSortedPlates.length; j++){
 				if(heightSortedPlates[i].weight < heightSortedPlates[j].weight)
-					if(max[i] < max[j])
+					if(max[i] < max[j] + 1)
 						max[i] = max[j] + 1;
 			}
 			if(max[i] == 0)
@@ -27,17 +27,24 @@ public class GetBiggestTower {
 		}
 		
 		int maxLen = 0;
+		int index = 0;
 		for(int i = 0; i < max.length; i++){
-			maxLen = maxLen > max[i] ? maxLen : max[i];
+			if(maxLen < max[i]){
+				maxLen = max[i];
+				index = i;
+			}
 		}
 		
-		System.out.println(maxLen);
+		System.out.println("max length = " + maxLen);
 		
-		
-		/*
-		for(Plate p : heightSortedPlates)
-			System.out.println(p.height + " " + p.weight);
-		*/
+		Plate currentPlate = plates[index];
+		for(int i = index; i < max.length; i++){
+			if(max[i] == maxLen && currentPlate.weight <= plates[i].weight){
+				System.out.println(plates[i].height + " " + plates[i].weight);
+				currentPlate = plates[i];
+				maxLen--;
+			}
+		}
 		
 }
 		
