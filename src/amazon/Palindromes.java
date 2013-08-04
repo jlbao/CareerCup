@@ -11,7 +11,7 @@ public class Palindromes {
 	public static int count = 0;
 	
 	public static void main(String[] args) {
-		String data = "abfdRacecaRAbAorTITabcdef";
+		String data = "abccbaaaaddd";
 		int[] span = getLongest(data);
 		System.out.println(span[0] + " " + span[1]);
 		System.out.println(data.substring(span[0], span[1] + 1));
@@ -28,7 +28,7 @@ public class Palindromes {
 			index[i] = buffer[data[i]] == 0 ? -1 : buffer[data[i]];
 			buffer[data[i]] = i;
 		}
-			
+		
 		for(int i = 0; i < index.length && index[i] != -1 ; i++){
 			int cur = i;
 			int j = index[i];
@@ -52,8 +52,8 @@ public class Palindromes {
 	}
 	
 	public static boolean isPaloindromes(char[] data, int i, int j){
-		int mid = (i + j) / 2;
-		for(int k = 0; k < mid; k++){
+		int count = j - i == 1 ? 1 : (j - i) / 2;
+		for(int k = 0; k < count; k++){
 			if(data[i + k] != data[j - k])
 				return false;
 		}
