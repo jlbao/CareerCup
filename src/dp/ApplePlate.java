@@ -20,8 +20,8 @@ public class ApplePlate {
 			 return 1;
 		 return put(m - n, n) + put(m,n - 1);
 	}
-	
-	// no sequence
+
+	//no sequence
 	public static int put2(int m, int n){
 		if(m == 0 || n == 1)
 			return 1;

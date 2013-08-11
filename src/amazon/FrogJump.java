@@ -27,7 +27,7 @@ public class FrogJump {
 			else if(i + data[i] >= data.length - 1)
 				count[i] = 1;
 			else{
-				count[i] = Integer.MAX_VALUE;
+				count[i] = data.length;
 				for(int j = i + 1; j <= i + data[i] && j < data.length; j++){
 					if(count[j] != 0 && count[i] >= count[j] + 1)
 						count[i] = count[j] + 1;
