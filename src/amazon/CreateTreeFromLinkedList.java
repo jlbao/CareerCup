@@ -14,7 +14,7 @@ public class CreateTreeFromLinkedList {
 		head.next.next = new LinkedNode(5);
 		head.next.next.next = new LinkedNode(6);
 		head.next.next.next.next = new LinkedNode(8);
-		head.next.next.next.next.next = new LinkedNode(16);
+	
 		TreeNode root = createTree(head,null);
 		printTreeByLevel(root);
 	}
@@ -66,21 +66,21 @@ public class CreateTreeFromLinkedList {
 			return null;
 		return new TreeNode(pre);
 	}
-}
+	public static class LinkedNode{
+		LinkedNode next;
+		int data;
+		public LinkedNode(int data){
+			this.data = data;
+		}
+	}
 
-class LinkedNode{
-	LinkedNode next;
-	int data;
-	public LinkedNode(int data){
-		this.data = data;
+	public static class TreeNode{
+		TreeNode left;
+		TreeNode right;
+		LinkedNode data;
+		public TreeNode(LinkedNode data){
+			this.data = data;
+		}
 	}
 }
 
-class TreeNode{
-	TreeNode left;
-	TreeNode right;
-	LinkedNode data;
-	public TreeNode(LinkedNode data){
-		this.data = data;
-	}
-}
