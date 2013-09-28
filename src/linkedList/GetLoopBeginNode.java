@@ -9,7 +9,8 @@ public class GetLoopBeginNode {
 		head.next.next = new Node(3);
 		head.next.next.next = head.next.next;
 		
-		System.out.println(getLoopBeginNode(head).data);
+		Node node = getLoopBeginNode(head);
+		System.out.println(node.data);
 
 	}
 
