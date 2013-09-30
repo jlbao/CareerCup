@@ -17,24 +17,27 @@ public class QuickSort {
 	public static void quickSort(int[] data, int i, int j){
 		if(i >= j)
 			return;
+
+		int mid = partition(data, i, j);
+		quickSort(data, i, mid - 1);
+		quickSort(data, mid + 1, j);
+	}
+	
+	public static int partition(int[] data, int i, int j){
+		int pivot = j;
 		int left = i - 1;
 		int right = i;
-		int pivot = j;
 		while(right < pivot){
-			if(data[pivot] < data[right]){
-				right++;
-			}else{
+			if(data[pivot] > data[right]){
 				int tmp = data[++left];
 				data[left] = data[right];
-				data[right++] = tmp;
+				data[right] = tmp;
 			}
+			right++;
 		}
 		int tmp = data[++left];
 		data[left] = data[pivot];
 		data[pivot] = tmp;
-		
-		quickSort(data, i, left - 1);
-		quickSort(data, left + 1, j);
+		return left;
 	}
-	
 }
