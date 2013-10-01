@@ -1,20 +1,35 @@
 package search;
 
-public class FindNthElement_Optimization {
+public class FindKNumsAroundMedian {
 
 	/**
-	 * Find the nth element in an array
-	 * Can assure the complexity is O(n)
-	 * better than FindNthElement 
-	 * because that cannot decide the pivot position
+	 * Need to find k numbers that are most closed to the median of the array
+	 * Need to have complexity of O(n)
+	 * Assume the input array has odd numbers, and k is odd numbers
 	 */
-	
 	public static void main(String[] args) {
-		int[] data = {3, 5, 2, 6, 25, 12, 18, 9, 23, 66, 12, 24, 25, 19, 18};
-		int result = findElement(data, 0, data.length - 1, 2);
-		System.out.println(result);
+		int[] data = {3,5,1,2,8,12,16,15,9,23,18};
+		int[] result = findKNumsAroundMedian(data, 5);
+		for(int i = 0; i < result.length; i++){
+			System.out.print(result[i] + " ");
+		}
 	}
 	
+	public static int[] findKNumsAroundMedian(int[] data, int k){
+		findElement(data, 0, data.length - 1, (data.length + 1) / 2);
+		int medianIndex = (data.length - 1) / 2;
+		int leftNth = (data.length + 1) / 2 - k / 2;
+		int rightNth = k / 2;
+		findElement(data, 0, medianIndex - 1, leftNth);
+		findElement(data, medianIndex + 1, data.length - 1, rightNth);
+		
+		int[] nums = new int[k];
+		for(int i = medianIndex - k / 2; i <= medianIndex + k / 2; i++)
+			nums[i - medianIndex + k / 2] = data[i];
+		
+		return nums;		
+	}
+
 	public static int findElement(int[] data, int i, int j, int n){
 		if(i >= j)
 			return data[i];
@@ -81,5 +96,5 @@ public class FindNthElement_Optimization {
 			}
 		}
 	}
-
+	
 }
