@@ -1,5 +1,7 @@
 package amazon;
 
+import java.util.ArrayList;
+
 public class FindIntersectionOf2Arrays {
 
 	/**
@@ -23,6 +25,33 @@ public class FindIntersectionOf2Arrays {
 	}
 	
 	public static int[] findIntersection(int[] data1, int[] data2){
+		data1 = mergeSort(data1, 0, data1.length - 1);
+		data2 = mergeSort(data2, 0, data2.length - 1);
+		ArrayList<Integer> intersections = new ArrayList<Integer>();
+		for(int i = 0, j = 0; i < data1.length && j < data2.length; ){
+			if(i < data1.length && j < data2.length){
+				if(data1[i] == data2[j]){
+					intersections.add(data1[i]);
+					i++;
+					j++;
+				}else if(data1[i] < data2[j]){
+					i++;
+				}else{
+					j++;
+				}
+			}
+		}
+		
+		int[] returnVal = new int[intersections.size()];
+		for(int i = 0; i < returnVal.length; i++){
+			returnVal[i] = intersections.get(i);
+		}
+		
+		return returnVal;
+	}
+	
+	
+	public static int[] findIntersection2(int[] data1, int[] data2){
 		int[] sortedData = mergeSort(data1, 0, data1.length - 1);
 		int[] intersectionIndex = new int[data2.length];
 		for(int i = 0; i < intersectionIndex.length; i++){
