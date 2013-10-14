@@ -1,41 +1,43 @@
 package test;
 
+import java.util.ArrayList;
+
 public class Test {
-
-
-	public static void main(String[] args) {
-
-	        System.out.println(pow(6,0));
-	}
 	
-    public static double pow(double x, int n) {
-        // Note: The Solution object is instantiated only once and is reused by each test case.
-        if(x == 0)
-            return 0;
-        if(n == 0)
-            return 1;
-        double data = pow(x, n / 2);
-        if(n % 2 == 0)
-            return data * data;
-        else
-            return data * data * x;
-    }
-	
-	public static String output(int num){
-		int i = 0;
-		for( ;num - 26 > 0; i++, num -= 26);
+	static class Dataset{
+		public ArrayList<Point> points; 
+		public Point selectedPoint;
 		
-		return i == 0 ? Character.toString((char)('A' + num - 1))
-					  : Character.toString((char)('A' + i - 1)) 
-					  	+ Character.toString((char)('A' + num - 1));		
+		public Point selectCell(){
+			return points.get(0);
+		}
+		public Dataset(){
+			points = new ArrayList<Point>();
+		}
+		public void update(Point point, int x, int y){
+			point.x = x;
+			point.y = y;
+		}
 	}
 
-	public static String output2(int num){
-		int pre = num / 26;
-		int after = num % 26;
-		return pre == 0 ? Character.toString((char)('A' + after - 1))
-						: Character.toString((char)('A' + pre - 1))
-						+ Character.toString((char)('A' + after - 1));
+	static class Point{
+		int x;
+		int y;
+		public Point(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
 	}
 	
+	public static void main(String[] args) {
+		Dataset dataset = new Dataset();
+		dataset.points.add(new Point(3,2));
+		Point selectedPoint = dataset.selectCell();
+		dataset.update(selectedPoint, 10, 10);
+		
+		System.out.println(dataset.points.get(0).x + " " + dataset.points.get(0).y);
+		
+	}
+	
+
 }
