@@ -152,7 +152,7 @@ public class MyHashtable<K, V> {
 		MyHashtable<String, Integer> table = new MyHashtable<String, Integer>();
 		Random rand = new Random();
 		for(int i = 0; i < 100; i++){
-			int size = rand.nextInt(9) + 1;
+			int size = rand.nextInt(12) + 3;
 			String str = "";
 			for(int j = 0; j < size; j++){
 				str += (char)(65 + rand.nextInt(25));
