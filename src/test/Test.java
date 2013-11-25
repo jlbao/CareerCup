@@ -4,40 +4,37 @@ import java.util.ArrayList;
 
 public class Test {
 	
-	static class Dataset{
-		public ArrayList<Point> points; 
-		public Point selectedPoint;
-		
-		public Point selectCell(){
-			return points.get(0);
-		}
-		public Dataset(){
-			points = new ArrayList<Point>();
-		}
-		public void update(Point point, int x, int y){
-			point.x = x;
-			point.y = y;
-		}
-	}
-
-	static class Point{
-		int x;
-		int y;
-		public Point(int x, int y){
-			this.x = x;
-			this.y = y;
-		}
-	}
-	
 	public static void main(String[] args) {
-		Dataset dataset = new Dataset();
-		dataset.points.add(new Point(3,2));
-		Point selectedPoint = dataset.selectCell();
-		dataset.update(selectedPoint, 10, 10);
-		
-		System.out.println(dataset.points.get(0).x + " " + dataset.points.get(0).y);
+		int[] A = {18, 2, 12, 16};
+		for(int i = 0; i < A.length; i++)
+			System.out.println(find(A, A[i]));
 		
 	}
 	
+	public static boolean find(int[] A, int val){
+		int i = 0;
+		int j = A.length - 1;
+		while(i <= j){
+			int mid = (i + j) / 2;
+			if(val == A[mid])
+				return true;
+			else if(A[i] <= A[mid]){
+				if(val < A[i])
+					i = mid + 1;
+				else if(val > A[mid])
+					i = mid + 1;
+				else
+					j = mid - 1;
+			}else{
+				if(val < A[mid])
+					j = mid - 1;
+				else if(val > A[j])
+					j = mid - 1;
+				else
+					i = mid + 1;
+			}
+		}
+		return false;
+	}
 
 }
