@@ -11,7 +11,14 @@ public class MyHashtable<K, V> {
 	 * A simple version that implement the following functions
 	 * put, get, remove, size, hash, rehash
 	 * 
-	 * helps me to better understand how hashtable works
+	 * It helps me to better understand how hashtable work
+	 * 
+	 * We need to define a good hashCode. We need to divide by a prime number.
+	 * The reason is that if the hashCode can always be divided by 4,
+	 * for the hashCodes bigger than the bucketSize, 
+	 * it will still be inserted to the positions that can be divided by 4
+	 * That will cause the vacancy of other 3 positions
+	 * So dividing by a prime number can solve this problem
 	 */
 	
 	int bucketSize = 50;
