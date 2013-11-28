@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public class Test {
 	
 	public static void main(String[] args) {
-		int[] A = {18, 2, 12, 16};
-		for(int i = 0; i < A.length; i++)
-			System.out.println(find(A, A[i]));
+		int a = 3;
+		System.out.println(a << 19);
 		
 	}
 	
