@@ -102,9 +102,14 @@ public class DFS {
 	
 	// non directed graph
 	// only support jointed graph
-	public static ArrayList<Integer> dfs_list(int root, ArrayList<Integer> list){
-		list.add(root);
-		Node head = adjacancyList[root];
+	// if want to support disjointed graph, need another function to check if all vertices have been traversed
+	// if not, randomly select a vertex to make dfs traverse
+	// dfs is just like a pre order
+	// we can also use post order, but we should keep in mind that: 
+	// we need to add to list first, then remove at the end of call, and add again. 
+	public static ArrayList<Integer> dfs_list(int v, ArrayList<Integer> list){
+		list.add(v);
+		Node head = adjacancyList[v];
 		while(head != null){
 			if(!list.contains(head.id)){
 				dfs_list(head.id, list);
@@ -116,7 +121,7 @@ public class DFS {
 	
 	public static ArrayList<Integer> dfs_table(int v, ArrayList<Integer> list){
 		list.add(v); // v was discovered
-		for(int i = v; i < adjacancyTable[v].length; i++){
+		for(int i = 0; i < adjacancyTable[v].length; i++){
 			if(adjacancyTable[v][i] && !list.contains(i)){
 				dfs_table(i, list);
 			}
