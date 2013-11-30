@@ -101,29 +101,51 @@ public class DFS {
 	
 	
 	// non directed graph
-	// only support jointed graph
 	// if want to support disjointed graph, need another function to check if all vertices have been traversed
 	// if not, randomly select a vertex to make dfs traverse
 	// dfs is just like a pre order
 	// we can also use post order, but we should keep in mind that: 
 	// we need to add to list first, then remove at the end of call, and add again. 
-	public static ArrayList<Integer> dfs_list(int v, ArrayList<Integer> list){
+	
+	// can support disjointed graph
+	public static ArrayList<Integer> dfs_list(int v){
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i = 0; i < adjacancyList.length; i++){
+			if(!list.contains(i)){
+				dfs_one_list(i, list);
+			}
+		}
+		return list;
+	}
+	
+	private static ArrayList<Integer> dfs_one_list(int v, ArrayList<Integer> list){
 		list.add(v);
 		Node head = adjacancyList[v];
 		while(head != null){
 			if(!list.contains(head.id)){
-				dfs_list(head.id, list);
+				dfs_one_list(head.id, list);
 			}
 			head = head.next;
 		}
 		return list;
 	}
 	
-	public static ArrayList<Integer> dfs_table(int v, ArrayList<Integer> list){
+	public static ArrayList<Integer> dfs_table(int v){
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i = 0; i < adjacancyList.length; i++){
+			if(!list.contains(i)){
+				dfs_one_table(i, list);
+			}
+		}
+		return list;
+	}
+	
+	
+	private static ArrayList<Integer> dfs_one_table(int v, ArrayList<Integer> list){
 		list.add(v); // v was discovered
 		for(int i = 0; i < adjacancyTable[v].length; i++){
 			if(adjacancyTable[v][i] && !list.contains(i)){
-				dfs_table(i, list);
+				dfs_one_table(i, list);
 			}
 		}
 		return list;
@@ -131,22 +153,10 @@ public class DFS {
 	
 	public static void main(String[] args) {
 		createDirectedGraph();
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		dfs_table(0, list);
+		ArrayList<Integer> list = dfs_list(0);
 		for(int val : list){
 			System.out.print(val + " ");
 		}
-		
-		/*
-		createDirectedGraph();
-		HashSet<Integer> graySet = new HashSet<Integer>();
-		HashSet<Integer> finishedSet = new HashSet<Integer>();
-		
-		boolean result = judgeLoopInList(0, graySet, finishedSet);
-		
-		System.out.println(finishedSet.size());
-		System.out.println(result);
-		*/
 	}
 
 }
