@@ -13,7 +13,6 @@ public class InsertionSort {
 		}
 	}
 	
-	// this is the exact insertion sort in U.S
 	public static void insertionSort(int[] data){
 		for(int i = 1; i < data.length; i++){
 			for(int j = i; j > 0; j--){
@@ -27,15 +26,5 @@ public class InsertionSort {
 			}
 		}
 	}
-	
-	// Actually this is not a insertion sort based on U.S standard
-	public static void insertionSort2(int[] data){
-		for(int i = 1; i < data.length; i++){
-			for(int j = i; j >= 1 && data[j] < data[j - 1]; j--){
-				int tmp = data[j];
-				data[j] = data[j - 1];
-				data[j - 1] = tmp;
-			}
-		}
-	}
+
 }
