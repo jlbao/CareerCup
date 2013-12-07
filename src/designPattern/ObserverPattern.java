@@ -7,6 +7,7 @@ public class ObserverPattern {
 
 	/**
 	 * implement the observer pattern
+	 * However, sometimes this cannot apply to GUI since it only applies one thread.
 	 */
 	
 	public static void main(String[] args) {

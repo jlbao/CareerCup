@@ -14,8 +14,17 @@ class A<T>{
 public class Test {
 	
 	public static void main(String[] args) {
-		Test a = new Test();
-		a.solveNQueens(4);
+		char[] data = {'1', '2', '3', '4'};
+		int len = data.length / 2;
+		for(int i = 0; i < len; i++){
+			// swap the 2 elements
+			char tmp = data[i];
+			data[i] = data[data.length - 1 - i];
+			data[data.length - 1 - i] = tmp;
+		}
+		for(char c : data){
+			System.out.print(c + " ");
+		}
 	}
 	
 	
