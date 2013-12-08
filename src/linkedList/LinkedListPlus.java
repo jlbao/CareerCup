@@ -25,19 +25,19 @@ public class LinkedListPlus {
 		int carry = 0; //add 1 if more than 1
 		
 		while(a != null && b != null){
-			int data = a.data + b.data + carry;
-			if (data >= 10){
-				data = data % 10;
+			int val = a.val + b.val + carry;
+			if (val >= 10){
+				val = val % 10;
 				carry = 1;
 			}else{
 				carry = 0;
 			}
 			
 			if(sum == null){
-				sum = new Node(data);
+				sum = new Node(val);
 				c = sum;
 			}else{
-				c.next = new Node(data);
+				c.next = new Node(val);
 				c = c.next;
 			}
 			a = a.next;
@@ -55,14 +55,14 @@ public class LinkedListPlus {
 			else
 				r = a;
 			while(r != null){
-				int data = r.data + carry;
-				if(data >= 10){
+				int val = r.val + carry;
+				if(val >= 10){
 					carry = 1;
-					data = data % 10;
+					val = val % 10;
 				}else{
 					carry = 0;
 				}
-				c.next = new Node(data);
+				c.next = new Node(val);
 				r = r.next;
 			}
 			

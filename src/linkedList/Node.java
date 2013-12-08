@@ -2,16 +2,16 @@ package linkedList;
 
 
 public class Node {
-	public int data;
+	public int val;
 	public Node next;
 	
-	public Node(int data){
-		this.data = data;
+	public Node(int val){
+		this.val = val;
 	}
 
 	public static void print(Node head){
 		while(head != null){
-			System.out.print(head.data + " -> ");
+			System.out.print(head.val + " -> ");
 			head = head.next;
 		}
 		System.out.println("null");
@@ -19,10 +19,11 @@ public class Node {
 	}
 	
 	public static Node getLinkedList(){
-		Node head = new Node(1);
+		Node head = new Node(10);
 		head.next = new Node(3);
 		head.next.next = new Node(5);
-		head.next.next.next = null;
+		head.next.next.next = new Node(2);
+		head.next.next.next.next = null;
 		return head;
 	}
 	

@@ -6,7 +6,7 @@ public class DeleteMiddleNode {
 	public static void main(String[] args) {
 		Node head = Node.getLinkedList();
 		Node mid = getMiddleNode(head);
-		//System.out.println(mid.data);
+		//System.out.println(mid.val);
 		deleteMiddleNode(mid);
 		Node.print(head);
 	}
@@ -36,7 +36,7 @@ public class DeleteMiddleNode {
 		
 		while(n != null){
 			if(n.next != null){ // next is not null
-				n.data = n.next.data; //copy from next node
+				n.val = n.next.val; //copy from next node
 			}else{ //the last node now
 				pre.next = null;
 			}

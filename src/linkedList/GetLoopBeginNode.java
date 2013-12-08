@@ -10,7 +10,7 @@ public class GetLoopBeginNode {
 		head.next.next.next = head.next.next;
 		
 		Node node = getLoopBeginNode(head);
-		System.out.println(node.data);
+		System.out.println(node.val);
 
 	}
 

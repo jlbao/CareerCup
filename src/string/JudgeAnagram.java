@@ -5,7 +5,7 @@ public class JudgeAnagram {
 
 	public static void main(String[] args) {
 		String str1 = "helloworld";
-		String str2 = "hellwoodlr";
+		String str2 = "ehllwoodlr";
 		System.out.println(isAnagram(str1,str2));
 	}
 	
@@ -17,11 +17,13 @@ public class JudgeAnagram {
 		
 		for(int i = 0; i < str1.length(); i++){
 			buffer[(int)str1.charAt(i)]++;
-			buffer[(int)str2.charAt(i)]--;
 		}
-		for(int i = 0; i < buffer.length; i++){
-			if(buffer[i] != 0)
+		
+		for(int i = 0; i < str2.length(); i++){
+			buffer[(int)str2.charAt(i)]--;
+			if(buffer[(int)str2.charAt(i)] < 0){
 				return false;
+			}
 		}
 		return true;
 	}

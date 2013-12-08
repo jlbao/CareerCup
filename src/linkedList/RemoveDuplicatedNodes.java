@@ -15,13 +15,13 @@ public class RemoveDuplicatedNodes {
 		Node node = head;
 		while(head != null){
 			while(node != p){
-				if(node.data == head.data) // is duplicate
+				if(node.val == head.val) // is duplicate
 					break;
 				node = node.next;
 			}
 			
 			if(node == p){ // no duplicate
-				node.data = head.data;
+				node.val = head.val;
 				p = p.next;
 			}
 			head = head.next;
