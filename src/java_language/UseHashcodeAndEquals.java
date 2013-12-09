@@ -53,6 +53,7 @@ public class UseHashcodeAndEquals {
 		map.put(s2, 1);
 		System.out.println(map.size());
 		
+		System.out.println(map.containsKey((new Student("baojialiang", 23))));
 	}
 
 }

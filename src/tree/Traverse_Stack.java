@@ -110,6 +110,30 @@ public class Traverse_Stack {
 		}
 	}
 	
+	public void inOrder_Stack3(TreeNode root){
+		if(root == null)
+			return;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode n = root;
+		while(n != null){
+			stack.push(n);
+			n = n.left;
+		}
+		while(!stack.isEmpty()){
+			TreeNode t = stack.pop();
+			System.out.print(t.val + " ");
+			if(t.right != null){
+				stack.push(t.right);
+				t = t.right.left;
+				while(t != null){
+					stack.push(t);
+					t = t.left;
+				}
+			}
+		}
+	}
+	
+	
 	public void postOrder_Stack(TreeNode root){
 		if(root == null)
 			return;
@@ -145,7 +169,7 @@ public class Traverse_Stack {
 		TreeNode root = getRoot();
 		traverse.preOrder_Stack(root);
 		System.out.println("\n--------------");
-		traverse.inOrder_Stack2(root);
+		traverse.inOrder_Stack3(root);
 		System.out.println("\n--------------");
 		traverse.postOrder_Stack(root);
 		
