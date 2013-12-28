@@ -7,28 +7,28 @@ public class SortLinkedList {
 	 * very tricky, better use the recursion to insert node, which will be easy
 	 */
 	public static void main(String[] args) {
-		Node head = Node.getLinkedList();
-		Node p = sortLinkedList(head);
+		ListNode head = ListNode.getLinkedList();
+		ListNode p = sortLinkedList(head);
 		while(p != null){
 			System.out.print(p.val + " ");
 			p = p.next;
 		}
 	}
 
-	public static Node sortLinkedList(Node head){
-		Node p = head;
-		Node p_prev = null;
+	public static ListNode sortLinkedList(ListNode head){
+		ListNode p = head;
+		ListNode p_prev = null;
 		while(p != null){
-			Node prev = null;
-			Node q = head;
+			ListNode prev = null;
+			ListNode q = head;
 			
-			Node p_next = p.next;
+			ListNode p_next = p.next;
 			while(q != p){
 				if(q == head && p.val < head.val){ // need to insert to the head
 					if(head.next == p){
 						head.next = p_next;
 					}else{ // need to put null to last one
-						Node s = head;
+						ListNode s = head;
                         p_prev.next = p_next;
 					}
 					p.next = head;

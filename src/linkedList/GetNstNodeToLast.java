@@ -1,21 +1,30 @@
 package linkedList;
 
 public class GetNstNodeToLast {
-
+/*
+ * find the Nst node to the last element
+ */
 	public static void main(String[] args) {
-		Node head = Node.getLinkedList();
-		Node.print(getNstNodeToLast(head,3));
+		ListNode head = ListNode.getLinkedList();
+		ListNode node = findKthElementToEnd(head, 2);
+		System.out.println(node.val);
 	}
 	
-	public static Node getNstNodeToLast(Node head, int n){
-		int i = 1;
-		while(head != null){
-			if(i == n)
-				return head;
-			head = head.next;
-			i++;
+	public static ListNode findKthElementToEnd(ListNode head, int k){
+		ListNode p = head;
+		int count = 0;
+		while(count < k && p != null){
+			count++;
+			p = p.next;
 		}
-		return null;
+		if(count < k){
+			return null;
+		}
+		ListNode prev = head;
+		while(p != null){
+			prev = prev.next;
+			p = p.next;
+		}
+		return prev;
 	}
-	
 }

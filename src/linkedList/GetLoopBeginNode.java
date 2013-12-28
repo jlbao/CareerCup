@@ -4,23 +4,23 @@ public class GetLoopBeginNode {
 
 
 	public static void main(String[] args) {
-		Node head = new Node(1);
-		head.next = new Node(2);
-		head.next.next = new Node(3);
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(2);
+		head.next.next = new ListNode(3);
 		head.next.next.next = head.next.next;
 		
-		Node node = getLoopBeginNode(head);
+		ListNode node = getLoopBeginNode(head);
 		System.out.println(node.val);
 
 	}
 
-	public static Node getLoopBeginNode(Node head){
+	public static ListNode getLoopBeginNode(ListNode head){
 		if(head == null){
 			return null;
 		}
-		Node p = head.next;
+		ListNode p = head.next;
 		while(p != null){
-			Node n = head;
+			ListNode n = head;
 			while(n != p){
 				if(p.next == n){
 					return n;
