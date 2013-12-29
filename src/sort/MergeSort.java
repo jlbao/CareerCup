@@ -4,14 +4,55 @@ public class MergeSort {
 
 	public static void main(String[] args) {
 		int[] data = new int[]{8,1,3,5,2,9,7,6};
-		int[] sortedData = mergeSort(data, 0, data.length - 1);
+		//data = mergeSort(data, 0, data.length - 1);
+		mergeSort(data, new int[data.length], 0, data.length - 1);
 		
-		for(int i = 0; i < sortedData.length; i++){
-			System.out.print(sortedData[i] + " ");
+		for(int i = 0; i < data.length; i++){
+			System.out.print(data[i] + " ");
 		}
 		System.out.println();
 	}
 	
+	// complex way of doing the merge sort
+	public static void mergeSort(int[] A, int[] helper, int l, int r){
+		if(l >= r){
+			return;
+		}
+		int mid = (l + r) / 2;
+		mergeSort(A, helper, l, mid);
+		mergeSort(A, helper, mid + 1, r);
+		merge(A, helper, l, mid, r);
+	}
+
+	public static void merge(int[] A, int[] helper, int l, int mid, int r){
+		for(int i = l; i <= r; i++){
+			helper[i] = A[i];
+		}
+		int i = l;
+		int j = mid + 1;
+		int k = l; // k keep track of the index in helper array
+		while(i <= mid || j <= r){
+			if(i <= mid && j <= r){
+				if(helper[i] < helper[j]){
+					A[k] = helper[i];
+					i++;
+				}else{
+					A[k] = helper[j];
+					j++;
+				}
+			}else if(i <= mid){
+				A[k] = helper[i];
+				i++;
+			}else{
+				A[k] = helper[j];
+				j++;
+			}
+			k++;
+		}
+	}
+	
+	
+	// easy way to do the merge sort, but need to return value
 	public static int[] mergeSort(int[] data,int pre, int after){
 		
 		if(pre == after){

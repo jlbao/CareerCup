@@ -30,7 +30,6 @@ public class PrintAllPaths {
 		getPathForOneNode(root, paths, new ArrayList<TreeNode>(), x);
 	}
 
-
 	public static void getPathForOneNode(TreeNode root, ArrayList<ArrayList<TreeNode>> paths, ArrayList<TreeNode> list, int x){
 		if(root == null){
 			return;
