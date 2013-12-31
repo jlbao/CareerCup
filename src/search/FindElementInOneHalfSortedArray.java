@@ -3,85 +3,51 @@ package search;
 public class FindElementInOneHalfSortedArray {
 
 	public static void main(String[] args) {
-		int[] data = {6,8,35,39,1,2,3,4,5};
-		System.out.println(getElementTurnPoint(data));
-		System.out.println(findElement(data,5));
+		int[] data = {5,8,35,39,5,5,5,5,5};
+		int index = find(data, 35, 0, data.length - 1);
+		System.out.println(index);
+		int[] data2 = {2, 2, 2, 2, 2, 3, 4, 5, 2};
+		index = find(data2, 5, 0, data.length - 1);
+		System.out.println(index);
 	}
 	
-	public static int find(int[] data, int value){
-		int i = 0;
-		int j = data.length - 1;
-		
-		while(i <= j){
-			int mid = (i + j) / 2;
-			
-			if(data[mid] == value)
-				return mid;
-			else if(data[i] < data[mid]){
-				if (value < data[i])
-					i = mid + 1;
-				else if(value > data[mid])
-					i = mid + 1;
-				else
-					j = mid - 1;
-			}
-			else if(value < data[mid])
-				j = mid - 1;
-			else if(value <= data[j])
-				i = mid + 1;
-			else
-				j = mid - 1;
-		}
-		return -1;
-	}
-	
-	
-	
-	
-	
-	
-	public static int findElement(int[] data, int value){
-		int turnPoint = getElementTurnPoint(data);
-		int i, j;
-		if(value == turnPoint)
-			return turnPoint;
-		else if( turnPoint == 0 || ( value > data[turnPoint] && value <= data[data.length - 1])){
-			i = turnPoint;
-			j = data.length - 1;
-		}else{
-			i = 0;
-			j = turnPoint - 1;
-		}
-			
-
-		while(i <= j){
-			int mid = (i + j) / 2;
-			if(data[mid] == value)
-				return mid;
-			else if(value < data[mid])
-				j = mid - 1;
-			else
-				i = mid + 1;
-		}
-		return -1;
-	}
-	
-	//get turn point of an array(2 sorted list, the 1st sorted list > 2nd sorted list)
-	public static int getElementTurnPoint(int[] data){
-		int i = 0;
-		int j = data.length - 1;
-		
-		if(data[i] < data[j])
+	public static int find(int[] A, int val, int l, int r){
+		if(l > r){
 			return -1;
-		
-		while(i + 1 != j){
-			int mid = (i + j) / 2;
-			if(data[mid] > data[i])
-				i = mid;
-			else
-				j = mid;
 		}
-		return j;
+		int mid = (l + r) / 2;
+		if(A[mid] == val){
+			return mid;
+		}
+		if(A[mid] > A[l]){ // left is in increasing order
+			if(val > A[mid]){
+				return find(A, val, mid + 1, r);
+			}else if(val >= A[l]){
+				return find(A, val, l, mid - 1);
+			}else{
+				return find(A, val, mid + 1, r);
+			}
+		}else if(A[mid] < A[l]){ // right is in increasing order
+			if(val < A[mid]){
+				return find(A, val, l, mid - 1);
+			}else if(val <= A[r]){
+				return find(A, val, mid + 1, r);
+			}else{
+				return find(A, val, l, mid - 1);
+			}
+		}else{ // A[mid] == A[l]
+			// 2 2 2 2 2 3 4 5 6 1
+			if(A[mid] != A[r]){ // search right
+				return find(A, val, mid + 1, r);
+			}else{ // search left first
+				// 2 2 2 2 2 3 4 5 1 2
+				// 2 3 4 5 2 2 2 2 2 2
+				int res = find(A, val, l, mid - 1);
+				if(res != -1){
+					return res;
+				}
+				return find(A, val, mid + 1, r);
+			}
+		}
 	}
-	
 }

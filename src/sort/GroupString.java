@@ -18,7 +18,7 @@ public class GroupString {
 	}
 
 	public static void group(String[] A){
-		HashTable<String, LinkedList<String>> table = new HashTable<String, LinkedList<String>>();
+		Hashtable<String, LinkedList<String>> table = new Hashtable<String, LinkedList<String>>();
 		for(int i = 0; i < A.length; i++){
 			String sortedStr = sortedString(A[i]);
 			if(!table.containsKey(sortedStr)){
@@ -28,9 +28,9 @@ public class GroupString {
 			list.add(A[i]);
 		}
 		int index = 0;
-		for(LinkedList<String> list: table.keySet()){
+		for(LinkedList<String> list: table.values()){
 			for(String val : list){
-				table[index++] = val;
+				A[index++] = val;
 			}
 		}
 	}

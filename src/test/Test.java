@@ -1,6 +1,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class A<T>{
 	private void test(){
@@ -14,108 +15,83 @@ class A<T>{
 public class Test {
 	
 	public static void main(String[] args) {
-		char[] data = {'1', '2', '3', '4'};
-		int len = data.length / 2;
-		for(int i = 0; i < len; i++){
-			// swap the 2 elements
-			char tmp = data[i];
-			data[i] = data[data.length - 1 - i];
-			data[data.length - 1 - i] = tmp;
-		}
-		for(char c : data){
-			System.out.print(c + " ");
-		}
+
+		/*
+		ArrayList<Person> list1 = new ArrayList<Person>();
+		ArrayList<Person> list2 = new ArrayList<Person>();
+		
+		list1.add(new Person("baojialiang", 23));
+		//list2.add(new Person("baojialiang", 23));
+		
+		list2.addAll(list1);
+		list1.remove(0);
+		
+		
+		System.out.println(list2.size());
+	*/
+		partition("ab");
+
+		
+		//combinationSum2(new int[]{1,1}, 2);
 	}
 	
-	
-    public ArrayList<String[]> solveNQueens(int n) {
-        int[] column = new int[n];
-        for(int i = 0; i < column.length; i++){
-            column[i] = -1;
-        }
-        return nQueues(n, new int[n], 0);
-    }
-    
-    public ArrayList<String[]> nQueues(int n, int[] column, int curRow){
-        ArrayList<String[]> list = new ArrayList<String[]>();
-        for(int i = 0; i < n; i++){
-            if(isValid(curRow, i, column)){
-                if(curRow != n - 1){
-                    column[curRow] = i;
-                    ArrayList<String[]> prevList = nQueues(n, column, curRow + 1); // get the data from the next row
-                    String rowString = getString(n, i);
-                    for(int j = 0; j < prevList.size(); j++){ // fill the data into the row
-                        prevList.get(j)[curRow] = rowString;
-                    }
-                    // clear it
-                    column[curRow] = -1;
-                    // add to the list
-                    list.addAll(prevList);
-                }else{ // this is the last row, we do not need to go to next
-                    String[] strList = new String[n];
-                    strList[curRow] = getString(n, i);
-                    list.add(strList);
-                    return list;
-                }
-            }
-        }
+    public static ArrayList<ArrayList<String>> partition(String s) {
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        ArrayList<String> one = new ArrayList<String>();
+        getCombinations(s, 0, list, one);
         return list;
     }
     
-    public String getString(int n, int k){
-        String str = "";
-        for(int i = 0; i < n; i++){
-            if(i == k){
-                str += "Q";
-            }else{
-                str += ".";
-            }
+    public static void getCombinations(String s, int index, ArrayList<ArrayList<String>> list, ArrayList<String> one){
+        if(index >= s.length()){
+            ArrayList<String> newOne = new ArrayList<String>();
+            newOne.addAll(one);
+            list.add(newOne);
+            return;
         }
-        return str;
+        String str = "";
+        for(int i = index; i < s.length(); i++){
+            str += s.charAt(i);
+            int idx = one.size();
+            if(isPalindrome(str)){
+                one.add(str);
+                getCombinations(s, i + 1, list, one);
+            }
+            one.remove(idx);
+        }
     }
     
-    public boolean isValid(int i, int j, int[] column){
-        // check top elements
-        for(int k = i - 1; k >= 0; k--){
-            if(column[k] == j){
-                return false;
-            }
-        }
-        
-        // check the left-top and top-right diagnol
-        int d = 1;
-        for(int k = i - 1; k >= 0; d++,k--){
-            if(column[k] == j - d || column[k] == j + d){
+    public static boolean isPalindrome(String str){
+        for(int i = 0; i < str.length() / 2; i++){
+            if(str.charAt(i) != str.charAt(str.length() - 1 - i)){
                 return false;
             }
         }
         return true;
     }
+}
+
+
+
+
+class Person{
+	int age;
+	String name;
+	public Person(String name, int age){
+		this.name = name;
+		this.age = age;
+	}
 	
-	public static boolean find(int[] A, int val){
-		int i = 0;
-		int j = A.length - 1;
-		while(i <= j){
-			int mid = (i + j) / 2;
-			if(val == A[mid])
-				return true;
-			else if(A[i] <= A[mid]){
-				if(val < A[i])
-					i = mid + 1;
-				else if(val > A[mid])
-					i = mid + 1;
-				else
-					j = mid - 1;
-			}else{
-				if(val < A[mid])
-					j = mid - 1;
-				else if(val > A[j])
-					j = mid - 1;
-				else
-					i = mid + 1;
-			}
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof Person)){
+			return false;
+		}
+		Person p = (Person)obj;
+		if(this.name == p.name && this.age == p.age){
+			return true;
 		}
 		return false;
 	}
-
+	
 }

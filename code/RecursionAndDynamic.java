@@ -233,7 +233,7 @@ public static int wayCount(int n, int[] size, int[][] store, int index){
 	}
 	int ways = 0;
 	for(int i = 0; i * size[index] <= n; i++){
-		ways += wayCount(n - i * size[index], size, store, index + 1);
+		ways += wayCount(n - i * size[index], size, store,y index + 1);
 	}	
 	store[index][n] = ways;
 	return ways;
