@@ -12,6 +12,7 @@ public class UseLinkedList {
 		list.add("a");
 		list.add("b");
 		list.add("c");
+		list.remove(); // == list.removeFirst();
 		for(String val : list){
 			System.out.println(val);
 		}

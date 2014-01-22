@@ -1,97 +1,45 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
-class A<T>{
-	private void test(){
-		System.out.println("A");
-	}
-	public void output(){
-		test();
-	}
-}
 
 public class Test {
+
+	static class ListNode{
+		int val;
+		ListNode next = null;
+		public ListNode(int val){
+			this.val = val;
+		}
+	}
 	
 	public static void main(String[] args) {
-
-		/*
-		ArrayList<Person> list1 = new ArrayList<Person>();
-		ArrayList<Person> list2 = new ArrayList<Person>();
-		
-		list1.add(new Person("baojialiang", 23));
-		//list2.add(new Person("baojialiang", 23));
-		
-		list2.addAll(list1);
-		list1.remove(0);
-		
-		
-		System.out.println(list2.size());
-	*/
-		partition("ab");
-
-		
-		//combinationSum2(new int[]{1,1}, 2);
+		int[] A = {1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19};
+		int[] range = findIndexRange(A);
+		System.out.println(range[0] + " " + range[1]);
 	}
 	
-    public static ArrayList<ArrayList<String>> partition(String s) {
-        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
-        ArrayList<String> one = new ArrayList<String>();
-        getCombinations(s, 0, list, one);
-        return list;
-    }
-    
-    public static void getCombinations(String s, int index, ArrayList<ArrayList<String>> list, ArrayList<String> one){
-        if(index >= s.length()){
-            ArrayList<String> newOne = new ArrayList<String>();
-            newOne.addAll(one);
-            list.add(newOne);
-            return;
-        }
-        String str = "";
-        for(int i = index; i < s.length(); i++){
-            str += s.charAt(i);
-            int idx = one.size();
-            if(isPalindrome(str)){
-                one.add(str);
-                getCombinations(s, i + 1, list, one);
-            }
-            one.remove(idx);
-        }
-    }
-    
-    public static boolean isPalindrome(String str){
-        for(int i = 0; i < str.length() / 2; i++){
-            if(str.charAt(i) != str.charAt(str.length() - 1 - i)){
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
-
-
-
-class Person{
-	int age;
-	String name;
-	public Person(String name, int age){
-		this.name = name;
-		this.age = age;
-	}
-	
-	@Override
-	public boolean equals(Object obj){
-		if(!(obj instanceof Person)){
-			return false;
+	public static int[] findIndexRange(int[] A){
+		int[] leftMax = new int[A.length];
+		int[] rightMin = new int[A.length];
+		leftMax[0] = A[0];
+		rightMin[rightMin.length - 1] = A[A.length - 1];
+		for(int i = 1; i < A.length; i++){
+			leftMax[i] = Math.max(A[i], leftMax[i - 1]);
+			rightMin[A.length - 1 - i] = Math.min(A[A.length - 1 - i], rightMin[A.length - i]);
 		}
-		Person p = (Person)obj;
-		if(this.name == p.name && this.age == p.age){
-			return true;
+		int minIndex = -1;
+		int maxIndex = -1;
+		for(int i = 0; i < A.length; i++){
+			if(A[i] > rightMin[i] && minIndex == -1){
+				minIndex = i;
+			}
+			if(A[A.length - i - 1] < leftMax[A.length - 1 - i] && maxIndex == -1){
+				maxIndex = A.length - i - 1;
+			}
+			if(minIndex != -1 && maxIndex != -1){
+				break;
+			}
 		}
-		return false;
+		return new int[]{minIndex, maxIndex};
 	}
-	
-}
+};
