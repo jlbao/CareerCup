@@ -129,9 +129,9 @@ public static TreeNode findCommonAncestor(TreeNode root, TreeNode n1, TreeNode n
 	TreeNode node = find(root, n1, n2);
 	if(node != n1 && node != n2){
 		return node;
-	}else if(node == n1 && isInTree(node, n1)){
+	}else if(node == n1 && isInTree(node, n2)){
 		return node;
-	}else if(node == n2 && isInTree(node, n2)){
+	}else if(node == n2 && isInTree(node, n1)){
 		return node;
 	}
 	return null;

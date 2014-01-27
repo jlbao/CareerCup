@@ -14,43 +14,39 @@ public class FindCommonAncestor {
 		TreeNode node = findCommonAncestor(root, root.left.left, root.left.right);
 		System.out.println(node.val);	
 	}
-	
-	// find the first common Ancestor for 2 tree nodes in a binary tree
+
+	// also need to make sure if the 2 nodes are in the tree
 	public static TreeNode findCommonAncestor(TreeNode root, TreeNode n1, TreeNode n2){
 		TreeNode node = find(root, n1, n2);
 		if(node != n1 && node != n2){
 			return node;
-		}else if(node == n1 && isInTree(node, n1)){
+		}else if(node == n1 && isInTree(root, n2)){
 			return node;
-		}else if(node == n2 && isInTree(node, n2)){
+		}else if(node == n2 && isInTree(root, n1)){
 			return node;
 		}
-		return null;
+		return null; // there is a node not in the tree
 	}
-
+	
 	public static TreeNode find(TreeNode root, TreeNode n1, TreeNode n2){
 		if(root == null){
 			return null;
 		}
-		if(root == n1){
-			return n1;
-		}
-		if(root == n2){
-			return n2;
+		if(root == n1 || root == n2){
+			return root;
 		}
 		TreeNode left = find(root.left, n1, n2);
 		TreeNode right = find(root.right, n1, n2);
 		if(left != null && right != null){
 			return root;
-		}else if(left != null){
+		}
+		if(left != null){
 			return left;
-		}else if(right != null){
+		}else{
 			return right;
 		}
-		return null;
 	}
 
-	// check if the node is in the tree
 	public static boolean isInTree(TreeNode root, TreeNode node){
 		if(root == null){
 			return false;
@@ -60,4 +56,5 @@ public class FindCommonAncestor {
 		}
 		return isInTree(root.left, node) || isInTree(root.right, node);
 	}
+	
 }

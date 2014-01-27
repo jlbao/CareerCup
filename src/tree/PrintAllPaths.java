@@ -1,6 +1,7 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PrintAllPaths {
 /*
@@ -19,39 +20,32 @@ public class PrintAllPaths {
 		root.right.left = new TreeNode(5);
 		root.right.right = new TreeNode(5);
 		
-		ArrayList<ArrayList<TreeNode>> paths = new ArrayList<ArrayList<TreeNode>>();
-		printPaths(root, 31, paths);		
+		ArrayList<ArrayList<Integer>> coll = new ArrayList<ArrayList<Integer>>();
+		dfs(root, 31, coll, new ArrayList<Integer>());
+		for(ArrayList<Integer> one : coll){
+			for(int val : one){
+				System.out.print(val + " ");
+			}
+			System.out.println();
+		}
 	}
 
-	public static void printPaths(TreeNode root, int x, ArrayList<ArrayList<TreeNode>> paths){
+	public static void dfs(TreeNode root, int target, ArrayList<ArrayList<Integer>> coll, ArrayList<Integer> level){
 		if(root == null){
 			return;
 		}
-		getPathForOneNode(root, paths, new ArrayList<TreeNode>(), x);
-	}
-
-	public static void getPathForOneNode(TreeNode root, ArrayList<ArrayList<TreeNode>> paths, ArrayList<TreeNode> list, int x){
-		if(root == null){
-			return;
-		}
-		list.add(root);
+		level.add(root.val);
+		LinkedList<Integer> list = new LinkedList<Integer>();
 		int sum = 0;
-		for(int i = list.size() - 1; i >= 0; i--){
-			sum += list.get(i).val;
-			if(sum == x){
-				print(list, i, list.size() - 1);
+		for(int i = level.size() - 1; i >= 0; i--){
+			sum += level.get(i);
+			list.addFirst(level.get(i));
+			if(sum == target){
+				coll.add(new ArrayList<Integer>(list));
 			}
 		}
-		getPathForOneNode(root.left, paths, list, x);
-		getPathForOneNode(root.right, paths, list, x);
-		list.remove(root);
+		dfs(root.left, target, coll, level);
+		dfs(root.right, target, coll, level);
+		level.remove(level.size() - 1);
 	}
-	
-	public static void print(ArrayList<TreeNode> list, int l, int r){
-		for(int i = l; i <= r; i++){
-			System.out.print(list.get(i).val + " ");
-		}
-		System.out.println();
-	}
-	
 }
